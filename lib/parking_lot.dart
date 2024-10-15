@@ -1,12 +1,51 @@
-import './vehicle.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'package:easypark/vehicle.dart';
 
 class ParkingLot {
   List<List<Vehicle?>> spots;
+  String filePath;
 
-  ParkingLot(int rows, int columns)
+  ParkingLot(int rows, int columns, this.filePath)
       : spots = List.generate(rows, (_) => List.filled(columns, null));
 
-  /// converte um numero de vaga (1 a n) para indices de linha e coluna
+  void saveToFile() {
+    var jsonData = spots.map((row) => row.map((vehicle) {
+      if (vehicle != null) {
+        return {
+          'plate': vehicle.plate,
+          'type': vehicle.type,
+          'entry': vehicle.entry.toIso8601String(),
+          'maxTime': vehicle.maxTime,
+        };
+      } else {
+        return null;
+      }
+    }).toList()).toList();
+
+    File(filePath).writeAsStringSync(jsonEncode(jsonData), flush: true);
+  }
+
+  void loadFromFile() {
+    try {
+      var jsonData = jsonDecode(File(filePath).readAsStringSync());
+      for (var i = 0; i < spots.length; i++) {
+        for (var j = 0; j < spots[i].length; j++) {
+          var vehicleData = jsonData[i][j];
+          if (vehicleData != null) {
+            spots[i][j] = Vehicle(
+              vehicleData['plate'],
+              vehicleData['type'],
+              vehicleData['maxTime'],
+            )..entry = DateTime.parse(vehicleData['entry']);
+          }
+        }
+      }
+    } catch (e) {
+      print("Erro ao carregar o arquivo JSON: $e");
+    }
+  }
+
   Map<String, int> convertToMatrixIndices(int spotNumber) {
     int rows = spots.length;
     int columns = spots[0].length;
@@ -16,24 +55,26 @@ class ParkingLot {
       throw ArgumentError("Invalid spot number");
     }
 
-    int index = spotNumber - 1; // ajustar para indice 0
-    int row = index ~/ columns; // linha
-    int column = index % columns; // coluna
+    int index = spotNumber - 1;
+    int row = index ~/ columns;
+    int column = index % columns;
     return {'row': row, 'column': column};
   }
 
   void registerEntry(String plate, String type, int maxTime, int spotNumber) {
+    calculateRemainingTime();
     var indices = convertToMatrixIndices(spotNumber);
     int row = indices['row']!;
     int column = indices['column']!;
 
-    if (spots[row][column] == null) { // se disponivel
+    if (spots[row][column] == null) {
       spots[row][column] = Vehicle(plate, type, maxTime);
       print("Car $plate entered spot $spotNumber.");
-      printSpotMatrix();
+      saveToFile();
     } else {
       print("Spot $spotNumber is already occupied!");
     }
+    printSpotMatrix();
   }
 
   void registerExit(String plate) {
@@ -43,27 +84,18 @@ class ParkingLot {
           var vehicle = spots[i][j]!;
           var timeSpent = DateTime.now().difference(vehicle.entry);
 
-          // tempo total em minutos e segundos
           int minutes = timeSpent.inMinutes;
           int seconds = timeSpent.inSeconds % 60;
 
           print("Car $plate exited. Time in the parking lot: $minutes minutes and $seconds seconds.");
           spots[i][j] = null;
+          saveToFile();
           printSpotMatrix();
           return;
         }
       }
     }
     print("Car $plate not found!");
-  }
-
-  void printSpotMatrix() {
-    calculateRemainingTime();
-    int spotNumber = 1;
-    for (var row in spots) {
-      print(row.map((spot) => spot != null ? 'X' : 'O').toList());
-      spotNumber += row.length;
-    }
   }
 
   void calculateRemainingTime() {
@@ -76,14 +108,22 @@ class ParkingLot {
 
           if (remainingTime.inMinutes <= 0 && remainingTime.inSeconds <= 0) {
             print("Car ${vehicle.plate} has exceeded the maximum time limit. Removing from the parking lot.");
-            spots[i][j] = null; // remover veiculo
+            spots[i][j] = null;
+            saveToFile();
           } else {
             int minutes = remainingTime.inMinutes;
-            int seconds = remainingTime.inSeconds % 60; // segundos restantes (nao completos minutos)
+            int seconds = remainingTime.inSeconds % 60;
             print("Car ${vehicle.plate} has $minutes minutes and $seconds seconds remaining.");
           }
         }
       }
+    }
+  }
+
+  void printSpotMatrix() {
+    calculateRemainingTime();
+    for (var row in spots) {
+      print(row.map((spot) => spot != null ? 'X' : 'O').toList());
     }
   }
 
