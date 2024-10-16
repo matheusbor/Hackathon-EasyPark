@@ -2,78 +2,75 @@ import 'package:easypark/colors.dart';
 import 'package:flutter/material.dart';
 
 void main(){
-  runApp(MyScreen());
+  runApp(AvailableVacancyScreen());
 
 }
 
-class MyScreen extends StatelessWidget{
+class AvailableVacancyScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: RegisterScreen(),
+      home: VacancyScreen(),
     );
   }
-
+  
 }
 
-class RegisterScreen extends StatelessWidget{
+class VacancyScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
           SizedBox(height: 24,),
-          Center(child: Image.asset("assets/EasyPark-menor.png" )),
-          SizedBox(height: 24,),
+
+          Container(
+            margin: EdgeInsets.only(left: 12, right: 24),
+            child: Row(
+              children: [
+
+                IconButton(
+                  padding: EdgeInsets.zero,
+
+                  onPressed: () {},
+                  icon: Icon(Icons.arrow_back, size: 36, color: Colors.black,),
+                ),
+                Expanded( // Ocupa o espaço restante à direita do botão
+                  child: Align(
+                    alignment: Alignment.center, // Centraliza a imagem dentro do espaço expandido
+                    child: Image.asset("assets/EasyPark-menor.png"),
+                  ),
+                ),
+
+                SizedBox(width: 24,)
+              ],
+            ),
+          ),
+
+
+          SizedBox(height: 48,),
           Container(
             alignment: Alignment.topLeft,
             margin: EdgeInsets.only(left: 24, right: 24),
-            child: Text( "Criar conta",
-                style: Theme.of(context).textTheme.displayMedium),
+            child: Text( "Ocupar Vaga",
+              style: Theme.of(context).textTheme.headlineLarge),
           ),
           SizedBox(height: 20,),
           Container(
             alignment: Alignment.topLeft,
             margin: EdgeInsets.only(left: 24, right: 24),
             child: Text(
-              "Para gerir ou usar um estacionamento, crie sua conta EasyPark.",
-              style: Theme.of(context).textTheme.bodyLarge,),
+                "Para estacionar seu veículo, preencha os campos abaixo:",
+            style: Theme.of(context).textTheme.bodyLarge,),
           ),
           SizedBox(height: 24,),
-          Container(
-            margin: EdgeInsets.only(left: 24, right: 24, bottom: 8),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "Digite seu Nome"
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 24, right: 24, bottom: 8),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "Digite seu E-mail"
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 24, right: 24, bottom: 8),
-            child: TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Digite sua Senha",
 
-              ),
-            ),
-          ),
           Container(
             margin: EdgeInsets.only(left: 24, right: 24, bottom: 8),
             child: TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: "Confirme sua Senha",
+                hintText: "Digite quantos minutos precisa",
               ),
             ),
           ),
@@ -91,13 +88,15 @@ class RegisterScreen extends StatelessWidget{
                   borderSide: BorderSide(color: Colors.black), // Borda ao ganhar o foco
                 ),
               ),
-              label: Text("Eu sou", style: TextStyle(color: Colors.black)),
+              label: Text("Estacionarei", style: TextStyle(color: Colors.black)),
 
               dropdownMenuEntries: [
-                DropdownMenuEntry(value: "cliente", label: "Cliente"),
-                DropdownMenuEntry(value: "gestor", label: "Gestor de um estacionamento"),
+                DropdownMenuEntry(value: "BRA0S17", label: "Carro BRA0S17"),
+                DropdownMenuEntry(value: "BRA0S15", label: "Van BRA0S15"),
+                DropdownMenuEntry(value: "BRA0S13", label: "Moto BRA0S13"),
               ]),
           SizedBox(height: 24,),
+
           Container(
             margin: EdgeInsets.only(left: 24, right: 24, bottom: 4),
             alignment: Alignment.topRight,
@@ -106,12 +105,12 @@ class RegisterScreen extends StatelessWidget{
                 Expanded(child: SizedBox()),
                 Expanded(
                   child: FilledButton(
-
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(MyColors.blueNormal),
-                      ),
+                  
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(MyColors.blueNormal),
+                    ),
                       onPressed: null,
-                      child: Text("Avançar",style: TextStyle(color: Colors.white))),
+                      child: Text("Estacionar",style: TextStyle(color: Colors.white))),
                 ),
               ],
             ),

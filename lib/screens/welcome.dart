@@ -39,37 +39,59 @@ class Welcome extends StatelessWidget{
           SizedBox(height: MediaQuery.of(context).size.height/2.5,),
 
           Container(
+              margin: EdgeInsets.only(left: 24, right: 24),
 
-            height: 40,
-            child: FilledButton(onPressed: null,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 40,
+                          child: FilledButton(onPressed: null,
 
-                style: ButtonStyle(
+                              style: ButtonStyle(
 
-                  fixedSize: WidgetStateProperty.all(Size(218, 40)),
-                  backgroundColor: WidgetStateProperty.all(MyColors.blueNormal),
 
-                ),
-                child: Text("Criar nova conta",
-                  style: TextStyle(color: Colors.white,fontSize:  Theme.of(context).textTheme.labelLarge?.fontSize),
-                )),
-          ),
-          SizedBox(height: 16,),
-          Container(
-            margin: EdgeInsets.zero,
-            height: 40,
-            child: FilledButton(onPressed: null,
+                                backgroundColor: WidgetStateProperty.all(MyColors.blueNormal),
 
-                style: ButtonStyle(
+                              ),
+                              child: Text("Criar nova conta",
+                                style: TextStyle(color: Colors.white,fontSize:  Theme.of(context).textTheme.labelLarge?.fontSize),
+                              )),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 12,),
 
-                    fixedSize: WidgetStateProperty.all(Size(218, 40)),
-                    backgroundColor: WidgetStateProperty.all(MyColors.blueNormalActive),
-    padding: WidgetStateProperty.all(EdgeInsets.zero),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 40,
+                          child: FilledButton(onPressed: null,
 
-                ),
-                child: Text("Entrar em minha conta",
-                  style: TextStyle(color: Colors.white, fontSize:  Theme.of(context).textTheme.labelLarge?.fontSize),//não mudou comparado ao texto comum
-                )),
-          ),
+                              style: ButtonStyle(
+
+
+                                backgroundColor: WidgetStateProperty.all(MyColors.blueNormalActive),
+                                padding: WidgetStateProperty.all(EdgeInsets.zero),
+
+                              ),
+                              child: Text("Entrar em minha conta",
+                                style: TextStyle(color: Colors.white, fontSize:  Theme.of(context).textTheme.labelLarge?.fontSize),//não mudou comparado ao texto comum
+                              )),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+          )
+
+
         ],
       ),
     );

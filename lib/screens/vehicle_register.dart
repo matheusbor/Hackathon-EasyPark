@@ -2,78 +2,51 @@ import 'package:easypark/colors.dart';
 import 'package:flutter/material.dart';
 
 void main(){
-  runApp(MyScreen());
+  runApp(VehicleRegisterScreen());
 
 }
 
-class MyScreen extends StatelessWidget{
+class VehicleRegisterScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: RegisterScreen(),
+      home: VehicleScreen(),
     );
   }
-
+  
 }
 
-class RegisterScreen extends StatelessWidget{
+class VehicleScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
           SizedBox(height: 24,),
-          Center(child: Image.asset("assets/EasyPark-menor.png" )),
-          SizedBox(height: 24,),
+         Center(child: Image.asset("assets/EasyPark-menor.png" )),
+          SizedBox(height: 48,),
           Container(
             alignment: Alignment.topLeft,
             margin: EdgeInsets.only(left: 24, right: 24),
-            child: Text( "Criar conta",
-                style: Theme.of(context).textTheme.displayMedium),
+            child: Text( "Registrar veículo",
+              style: Theme.of(context).textTheme.headlineLarge),
           ),
           SizedBox(height: 20,),
           Container(
             alignment: Alignment.topLeft,
             margin: EdgeInsets.only(left: 24, right: 24),
             child: Text(
-              "Para gerir ou usar um estacionamento, crie sua conta EasyPark.",
-              style: Theme.of(context).textTheme.bodyLarge,),
+                "Para estacionar seu veículo, registre ele em sua conta EasyPark.",
+            style: Theme.of(context).textTheme.bodyLarge,),
           ),
           SizedBox(height: 24,),
-          Container(
-            margin: EdgeInsets.only(left: 24, right: 24, bottom: 8),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "Digite seu Nome"
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 24, right: 24, bottom: 8),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "Digite seu E-mail"
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 24, right: 24, bottom: 8),
-            child: TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Digite sua Senha",
 
-              ),
-            ),
-          ),
           Container(
             margin: EdgeInsets.only(left: 24, right: 24, bottom: 8),
             child: TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: "Confirme sua Senha",
+                hintText: "Digite a placa",
               ),
             ),
           ),
@@ -91,13 +64,15 @@ class RegisterScreen extends StatelessWidget{
                   borderSide: BorderSide(color: Colors.black), // Borda ao ganhar o foco
                 ),
               ),
-              label: Text("Eu sou", style: TextStyle(color: Colors.black)),
+              label: Text("Eu tenho", style: TextStyle(color: Colors.black)),
 
               dropdownMenuEntries: [
-                DropdownMenuEntry(value: "cliente", label: "Cliente"),
-                DropdownMenuEntry(value: "gestor", label: "Gestor de um estacionamento"),
+                DropdownMenuEntry(value: "car", label: "Carro"),
+                DropdownMenuEntry(value: "van", label: "Van"),
+                DropdownMenuEntry(value: "moto", label: "Moto"),
               ]),
           SizedBox(height: 24,),
+
           Container(
             margin: EdgeInsets.only(left: 24, right: 24, bottom: 4),
             alignment: Alignment.topRight,
@@ -106,10 +81,10 @@ class RegisterScreen extends StatelessWidget{
                 Expanded(child: SizedBox()),
                 Expanded(
                   child: FilledButton(
-
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(MyColors.blueNormal),
-                      ),
+                  
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(MyColors.blueNormal),
+                    ),
                       onPressed: null,
                       child: Text("Avançar",style: TextStyle(color: Colors.white))),
                 ),
