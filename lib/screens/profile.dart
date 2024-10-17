@@ -1,31 +1,77 @@
 import 'package:easypark/colors.dart';
+import 'package:easypark/screens/park.dart';
 import 'package:easypark/widgets.dart';
 import 'package:flutter/material.dart';
 
 void main(){
-  runApp(ProfileScreen());
+  runApp(MainApp());
 
 }
-
-class ProfileScreen extends StatelessWidget{
+class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: Profile(),
+      home: MainPage(),
     );
   }
-  
 }
+
+class MainPage extends StatefulWidget {
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  int _selectedIndex = 2;
+
+  static List<Widget> _pages = <Widget>[
+    Placeholder(),
+    Park(),
+    Profile(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: EasyNavigation(
+        _selectedIndex,
+        onPageChanged: _onItemTapped,
+      ),
+    );
+  }
+}
+
+// class ProfileScreen extends StatelessWidget{
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       theme: ThemeData(
+//         scaffoldBackgroundColor: Colors.white,
+//       ),
+//       home: Profile(),
+//     );
+//   }
+//
+// }
 
 class Profile extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: EasyNavigation(2),
-      body: Container(
+    return
+      Scaffold(
+    //   bottomNavigationBar: EasyNavigation(2),
+      body:
+      Container(
         margin: EdgeInsets.only(left: 24, right: 24),
         child: Column(
           children: [

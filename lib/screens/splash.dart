@@ -10,6 +10,9 @@ class SplashScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+      scaffoldBackgroundColor: Colors.white,
+    ),
 
       home: Splash(),
     );
