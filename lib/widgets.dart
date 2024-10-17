@@ -1,3 +1,4 @@
+import 'package:easypark/cli_program_data/vehicle.dart';
 import 'package:easypark/colors.dart';
 import 'package:easypark/screens/park.dart';
 import 'package:easypark/screens/profile.dart';
@@ -54,14 +55,24 @@ class _EasyNavigationState extends State<EasyNavigation> {
 }
 
 class EasyBottomSheet extends StatefulWidget{
+  double? timeLeft;
+
+  EasyBottomSheet({super.key, required this.timeLeft});
+
   @override
   State<EasyBottomSheet> createState() => _EasyBottomSheetState();
 }
 
+
 class _EasyBottomSheetState extends State<EasyBottomSheet> {
-  double timeLeft = 0;
+  double time =0;
+
+
   @override
   Widget build(BuildContext context) {
+    if(widget.timeLeft != null && widget.timeLeft! > 0){
+      time = widget.timeLeft!.toInt() * 60;
+    } else{time = 0; }
     return Container(
       margin: EdgeInsets.only(left: 24, right: 24),
       child: Column(
@@ -80,7 +91,7 @@ class _EasyBottomSheetState extends State<EasyBottomSheet> {
               Text("Tempo restante: ",
                 style: Theme.of(context).textTheme.bodyMedium,),
               SizedBox(width: 4,),
-              Text("$timeLeft minutos",
+              Text("${time~/60} minutos",
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],

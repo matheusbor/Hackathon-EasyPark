@@ -1,4 +1,6 @@
 import 'package:easypark/colors.dart';
+import 'package:easypark/screens/login.dart';
+import 'package:easypark/screens/register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +13,7 @@ class WelcomeScreen extends StatelessWidget{
   Widget build(BuildContext context) {
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
       ),
@@ -52,7 +55,12 @@ class Welcome extends StatelessWidget{
                       Expanded(
                         child: Container(
                           height: 40,
-                          child: FilledButton(onPressed: null,
+                          child: FilledButton(onPressed: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => RegisterScreen()),
+                            );
+                          },
 
                               style: ButtonStyle(
 
@@ -74,7 +82,13 @@ class Welcome extends StatelessWidget{
                       Expanded(
                         child: Container(
                           height: 40,
-                          child: FilledButton(onPressed: null,
+                          child: FilledButton(
+                              onPressed: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => LoginScreen()),
+                            );
+                          },
 
                               style: ButtonStyle(
 

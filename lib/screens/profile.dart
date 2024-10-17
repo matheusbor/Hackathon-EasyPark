@@ -4,22 +4,23 @@ import 'package:easypark/widgets.dart';
 import 'package:flutter/material.dart';
 
 void main(){
-  runApp(MainApp());
+  runApp(ProfileApp());
 
 }
-class MainApp extends StatelessWidget {
+class ProfileApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: MainPage(),
+      home: ProfilePage(),
     );
   }
 }
 
-class MainPage extends StatefulWidget {
+class ProfilePage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
 }

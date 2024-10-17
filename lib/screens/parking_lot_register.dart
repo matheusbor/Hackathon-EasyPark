@@ -1,4 +1,5 @@
 import 'package:easypark/colors.dart';
+import 'package:easypark/screens/vehicle_register.dart';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +13,7 @@ class ParkingLotRegisterScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
       ),
@@ -115,28 +117,32 @@ class _ParkingScreenState extends State<ParkingScreen> {
                     ),
 
                       onPressed: () async{
-                      saveParkingLot();
-                      final prefs = await SharedPreferences.getInstance();
-                      
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              // Retrieve the text the that user has entered by using the
-                              // TextEditingController.
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(nameController.text),
-                                  Text(vacancyController.text),
-                                  Text(floorController.text),
-                                  Text("${prefs.getInt("minutes")}"),
-                                  Text("${prefs.getString("plate")}"),
-                                ],
-                              ),
-                            );
-                          },
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => VehicleRegisterScreen()),
                         );
+                      saveParkingLot();
+                      // final prefs = await SharedPreferences.getInstance();
+                      //
+                      //   showDialog(
+                      //     context: context,
+                      //     builder: (context) {
+                      //       return AlertDialog(
+                      //         // Retrieve the text the that user has entered by using the
+                      //         // TextEditingController.
+                      //         content: Column(
+                      //           mainAxisSize: MainAxisSize.min,
+                      //           children: [
+                      //             Text(nameController.text),
+                      //             Text(vacancyController.text),
+                      //             Text(floorController.text),
+                      //             Text("${prefs.getInt("minutes")}"),
+                      //             Text("${prefs.getString("plate")}"),
+                      //           ],
+                      //         ),
+                      //       );
+                      //     },
+                      //   );
                       },
                       child: Text("Avançar",style: TextStyle(color: Colors.white))),
                 ),

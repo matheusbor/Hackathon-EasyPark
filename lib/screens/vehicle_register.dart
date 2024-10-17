@@ -1,4 +1,5 @@
 import 'package:easypark/colors.dart';
+import 'package:easypark/screens/park.dart';
 import 'package:flutter/material.dart';
 
 void main(){
@@ -10,6 +11,7 @@ class VehicleRegisterScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
       ),
@@ -88,7 +90,12 @@ class VehicleScreen extends StatelessWidget{
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(MyColors.blueNormal),
                     ),
-                      onPressed: null,
+                      onPressed: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MainApp()),
+                        );
+                      } ,
                       child: Text("Avançar",style: TextStyle(color: Colors.white))),
                 ),
               ],

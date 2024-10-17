@@ -1,4 +1,5 @@
 import 'package:easypark/colors.dart';
+import 'package:easypark/screens/parking_lot_register.dart';
 import 'package:flutter/material.dart';
 
 void main(){
@@ -10,6 +11,7 @@ class MyScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
       ),
@@ -113,7 +115,12 @@ class RegisterScreen extends StatelessWidget{
                       style: ButtonStyle(
                         backgroundColor: WidgetStateProperty.all(MyColors.blueNormal),
                       ),
-                      onPressed: null,
+                      onPressed: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ParkingLotRegisterScreen()),
+                        );
+                      },
                       child: Text("Avançar",style: TextStyle(color: Colors.white))),
                 ),
               ],

@@ -1,26 +1,32 @@
+import 'package:easypark/cli_program_data/vehicle.dart';
 import 'package:easypark/colors.dart';
+import 'package:easypark/screens/park.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main(){
-  runApp(AvailableVacancyScreen());
 
-}
-
-class AvailableVacancyScreen extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-      ),
-      home: VacancyScreen(),
-    );
-  }
-  
-}
+// class AvailableVacancyScreen extends StatelessWidget{
+//   // final Vehicle vehicle;
+//   //
+//   // const AvailableVacancyScreen({super.key, required this.vehicle});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       theme: ThemeData(
+//         scaffoldBackgroundColor: Colors.white,
+//       ),
+//       home: VacancyScreen(),
+//     );
+//   }
+//
+// }
 
 class VacancyScreen extends StatefulWidget{
+  // final Vehicle vehicle;
+  //
+  // VacancyScreen(this.vehicle);
   @override
   State<VacancyScreen> createState() => _VacancyScreenState();
 }
@@ -33,15 +39,23 @@ class _VacancyScreenState extends State<VacancyScreen> {
     minutesController.dispose();
     super.dispose();
   }
-  Future<void> occupying() async {
+  Future<void> occupying(BuildContext context) async {
+    print("Entrou na função occupying");
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt("minutes", int.parse(minutesController.text));
-    dispose();
+
+    String type = prefs.getString("type") ?? "";
+    int minutes = prefs.getInt("minutes") ?? 1000;
+
+    print("Type: $type, Minutes: $minutes");
+    Navigator.pop(context, {'type': type, 'minutes': minutes});
+    print("Saiu da função occupying");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           SizedBox(height: 24,),
@@ -54,7 +68,12 @@ class _VacancyScreenState extends State<VacancyScreen> {
                 IconButton(
                   padding: EdgeInsets.zero,
 
-                  onPressed: () {},
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MainApp()),
+                    );
+                  },
                   icon: Icon(Icons.arrow_back, size: 36, color: Colors.black,),
                 ),
                 Expanded( // Ocupa o espaço restante à direita do botão
@@ -113,14 +132,14 @@ class _VacancyScreenState extends State<VacancyScreen> {
               ),
               label: Text("Estacionarei", style: TextStyle(color: Colors.black)),
 
-              onSelected: (placa) async{
+              onSelected: (type) async{
                 final prefs = await SharedPreferences.getInstance();
-                prefs.setString("plate", placa ?? "");
+                prefs.setString("type", type ?? "");
               },
               dropdownMenuEntries: [
-                DropdownMenuEntry(value: "BRA0S17", label: "Carro BRA0S17"),
-                DropdownMenuEntry(value: "BRA0S15", label: "Van BRA0S15"),
-                DropdownMenuEntry(value: "BRA0S13", label: "Moto BRA0S13"),
+                DropdownMenuEntry(value: "car", label: "Carro BRA0S17"),
+                DropdownMenuEntry(value: "van", label: "Van BRA0S15"),
+                DropdownMenuEntry(value: "moto", label: "Moto BRA0S13"),
               ]),
           SizedBox(height: 24,),
 
@@ -136,8 +155,8 @@ class _VacancyScreenState extends State<VacancyScreen> {
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(MyColors.blueNormal),
                     ),
-                      onPressed: (){
-                        occupying();
+                      onPressed: ()  {
+                      occupying(context);
                       },
                       child: Text("Estacionar",style: TextStyle(color: Colors.white))),
                 ),
