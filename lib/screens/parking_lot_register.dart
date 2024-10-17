@@ -1,5 +1,7 @@
 import 'package:easypark/colors.dart';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main(){
   runApp(ParkingLotRegisterScreen());
@@ -16,7 +18,33 @@ class ParkingLotRegisterScreen extends StatelessWidget{
   
 }
 
-class ParkingScreen extends StatelessWidget{
+class ParkingScreen extends StatefulWidget{
+  @override
+  State<ParkingScreen> createState() => _ParkingScreenState();
+}
+
+class _ParkingScreenState extends State<ParkingScreen> {
+  final nameController = TextEditingController();
+  final vacancyController = TextEditingController();
+  final floorController = TextEditingController();
+
+
+  @override
+  void dispose(){
+    nameController.dispose();
+    vacancyController.dispose();
+    floorController.dispose();
+    super.dispose();
+  }
+  
+  Future<void> saveParkingLot() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("name", nameController.text);
+    await prefs.setInt("vacancies", int.parse(vacancyController.text));
+    await prefs.setInt("floor", int.parse(floorController.text));
+    dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +71,7 @@ class ParkingScreen extends StatelessWidget{
           Container(
             margin: EdgeInsets.only(left: 24, right: 24, bottom: 8),
             child: TextField(
+              controller: nameController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: "Digite o nome",
@@ -52,6 +81,7 @@ class ParkingScreen extends StatelessWidget{
           Container(
             margin: EdgeInsets.only(left: 24, right: 24, bottom: 8),
             child: TextField(
+              controller: vacancyController,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "Digite a quantidade de vagas",
@@ -61,6 +91,7 @@ class ParkingScreen extends StatelessWidget{
           Container(
             margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
             child: TextField(
+              controller: floorController,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "Digite a quantidade de andares",
@@ -75,11 +106,35 @@ class ParkingScreen extends StatelessWidget{
                 Expanded(child: SizedBox()),
                 Expanded(
                   child: FilledButton(
-                  
+
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(MyColors.blueNormal),
                     ),
-                      onPressed: null,
+
+                      onPressed: () async{
+                      saveParkingLot();
+                      final prefs = await SharedPreferences.getInstance();
+                      
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              // Retrieve the text the that user has entered by using the
+                              // TextEditingController.
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(nameController.text),
+                                  Text(vacancyController.text),
+                                  Text(floorController.text),
+                                  Text("${prefs.getInt("minutes")}"),
+                                  Text("${prefs.getString("plate")}"),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
                       child: Text("Avançar",style: TextStyle(color: Colors.white))),
                 ),
               ],

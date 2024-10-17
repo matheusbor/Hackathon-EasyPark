@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:easypark/vehicle.dart';
+import 'package:easypark/cli_program_data/vehicle.dart';
 
 class ParkingLot {
   List<List<Vehicle?>> spots;

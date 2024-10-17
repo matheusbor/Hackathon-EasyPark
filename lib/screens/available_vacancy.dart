@@ -1,5 +1,6 @@
 import 'package:easypark/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main(){
   runApp(AvailableVacancyScreen());
@@ -16,7 +17,25 @@ class AvailableVacancyScreen extends StatelessWidget{
   
 }
 
-class VacancyScreen extends StatelessWidget{
+class VacancyScreen extends StatefulWidget{
+  @override
+  State<VacancyScreen> createState() => _VacancyScreenState();
+}
+
+class _VacancyScreenState extends State<VacancyScreen> {
+  final minutesController = TextEditingController();
+
+  @override
+  void dispose(){
+    minutesController.dispose();
+    super.dispose();
+  }
+  Future<void> occupying() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt("minutes", int.parse(minutesController.text));
+    dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,6 +87,7 @@ class VacancyScreen extends StatelessWidget{
           Container(
             margin: EdgeInsets.only(left: 24, right: 24, bottom: 8),
             child: TextField(
+              controller: minutesController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: "Digite quantos minutos precisa",
@@ -90,6 +110,10 @@ class VacancyScreen extends StatelessWidget{
               ),
               label: Text("Estacionarei", style: TextStyle(color: Colors.black)),
 
+              onSelected: (placa) async{
+                final prefs = await SharedPreferences.getInstance();
+                prefs.setString("plate", placa ?? "");
+              },
               dropdownMenuEntries: [
                 DropdownMenuEntry(value: "BRA0S17", label: "Carro BRA0S17"),
                 DropdownMenuEntry(value: "BRA0S15", label: "Van BRA0S15"),
@@ -105,11 +129,13 @@ class VacancyScreen extends StatelessWidget{
                 Expanded(child: SizedBox()),
                 Expanded(
                   child: FilledButton(
-                  
+
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all(MyColors.blueNormal),
                     ),
-                      onPressed: null,
+                      onPressed: (){
+                        occupying();
+                      },
                       child: Text("Estacionar",style: TextStyle(color: Colors.white))),
                 ),
               ],
