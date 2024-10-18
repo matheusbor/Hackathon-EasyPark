@@ -2,7 +2,7 @@ import 'dart:io';
 import 'parking_lot.dart';
 
 void main() {
-  var parkingLot = ParkingLot(2, 5, './lib/data/parking_data.json');  // 2 x 5 (10 vagas)
+  var parkingLot = ParkingLot(2, 5, './lib/cli_program_data/parking_data.json');  // 2 x 5 (10 vagas)
 
   // carregar estado anterior, se houver
   parkingLot.loadFromFile();
