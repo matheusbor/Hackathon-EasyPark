@@ -1,13 +1,25 @@
-# EasyPark - Gerenciamento de Estacionamento
+# EasyPark - Gerenciamento de Estacionamentos
+![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-no-red.svg)](https://bitbucket.org/lbesson/ansi-colors)
 
-**EasyPark** é o MVP entregue pela nossa equipe para o Hackathon do IFF Bom Jesus, campus Itabapoana. Nossa solução visa facilitar o gerenciamento de estacionamentos, oferecendo uma ferramenta simples e intuitiva, especialmente voltada para negócios de pequeno e médio porte.
+
+**EasyPark** é o MVP entregue pela nossa equipe para o Hackathon SCEG do IFF campus Bom Jesus do Itabapoana. Nossa solução visa facilitar o gerenciamento de estacionamentos, oferecendo uma ferramenta simples e intuitiva, especialmente voltada para negócios de pequeno e médio porte.
+
+## Layout 
+<div style="display: flex; gap: 10px;">
+   <img src=".github/parking_lot.png" alt="Parking Lot Example" width="200">
+   <img src=".github/empty_park.png" alt="Empty Park Example" width="200">
+   <img src=".github/vacancy.png" alt="Vacancy Example" width="200">
+   <img src=".github/status.png" alt="Vacancy Status Example" width="200">
+</div>
 
 ## Funcionalidades Principais
 
-- **Interface Simplificada**: Cada botão no app representa uma vaga de estacionamento. Todo o estacionamento, incluindo andares, vagas livres e ocupadas, pode ser visualizado diretamente na tela principal.
-- **Gestão de Veículos**: Visualização do tempo restante de cada veículo estacionado, a partir do cadastro de veículos do usuário.
-- **Ocupação em Tempo Real**: Monitore a disponibilidade das vagas em tempo real, facilitando o controle e a operação do estacionamento.
-- **Persistência de Dados**: Utilizamos o package `shared_preferences` para garantir que os dados sejam mantidos entre as sessões do app, proporcionando uma experiência de uso contínua e eficiente.
+- **Interface Intuitiva**: Cada botão no app representa uma vaga de estacionamento. Todo o estacionamento, incluindo andares, vagas livres e ocupadas, pode ser visualizado diretamente na tela principal.
+- **Gestão de Veículos**: Visualização do tempo restante de cada veículo estacionado, a partir do cadastro de veículos dos usuários.
+- **Ocupação em Tempo Real**: Monitore a disponibilidade das vagas dando refresh em tempo real, facilitando o controle e a operação do estacionamento.
+- **Experiência Contínua**: O estado do estacionamento é conservado entre as sessões, proporcionando uma experiência de uso contínua e eficiente.
 
 ## Monetização
 
