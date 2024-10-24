@@ -4,7 +4,7 @@
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-no-red.svg)](https://bitbucket.org/lbesson/ansi-colors)
 
 
-**EasyPark** é o MVP entregue pela nossa equipe para o Hackathon SCEG do IFF campus Bom Jesus do Itabapoana. Nossa solução visa facilitar o gerenciamento de estacionamentos, oferecendo uma ferramenta simples e intuitiva, especialmente voltada para negócios de pequeno e médio porte.
+**EasyPark** é o MVP vencedor do Hackathon SCEG do IFF campus Bom Jesus do Itabapoana. Nossa solução visa facilitar o gerenciamento de estacionamentos, oferecendo uma ferramenta simples e intuitiva, especialmente voltada para negócios de pequeno e médio porte.
 
 ## Layout 
 <div style="display: flex; gap: 10px;">
